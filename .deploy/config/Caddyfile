@@ -1,0 +1,19 @@
+:80 {
+    root * /home/www
+
+    @websockets {
+        header Connection *upgrade*
+        header Upgrade    websocket
+    }
+    reverse_proxy @websockets 127.0.0.1:6001 {
+        header_down -X-Powered-By
+    }
+
+    redir /index.html / 308
+
+    php_fastcgi 127.0.0.1:9000
+    encode gzip
+    header -X-Powered-By
+    file_server
+    log
+}

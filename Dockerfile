@@ -10,6 +10,8 @@ COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/local/
 COPY --from=caddy:2.2.1 /usr/bin/caddy /usr/local/bin/caddy
 RUN setcap 'cap_net_bind_service=+ep' /usr/local/bin/caddy
 
+COPY ./.deploy /home/.deploy/
+
 # Set working directory
 ENV APP_PATH=/home/www
 WORKDIR $APP_PATH
@@ -28,6 +30,6 @@ USER $NON_ROOT_USER
 
 # Start app
 EXPOSE 80
-COPY ./.deploy/entrypoint.sh /
 
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+
+ENTRYPOINT ["sh", "/home/.deploy/entrypoint.sh"]

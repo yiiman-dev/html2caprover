@@ -11,4 +11,4 @@ echo "🎬 entrypoint.sh: [$(whoami)]"
 
 echo "🎬 start supervisord"
 
-supervisord -c $APP_PATH/.deploy/config/supervisor.conf
+supervisord -c /home/.deploy/config/supervisor.conf
